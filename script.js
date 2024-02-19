@@ -31,6 +31,15 @@ async function detect(){
     faceapi.draw.drawDetections(canvas, resizedDetections)
     faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
     faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
+    resizedDetections.forEach(result => {
+        const {age, gender, genderProbability} = result
+        new faceapi.draw.DrawTextField([
+            `${Math.round(age,0)} Tahun`,
+            `${gender} ${Math.round(genderProbability)}`
+        ],
+        result.detection.box.bottomRight
+        ).draw(canvas)
+    });
 }
 
 video.addEventListener('play', ()=>{
